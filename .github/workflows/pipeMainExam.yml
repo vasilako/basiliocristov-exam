@@ -1,0 +1,26 @@
+name: Pipeline for Build, Test and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-unit-test-job:
+      runs-on: ubuntu-latest
+  
+      steps:
+      - name: Repo checkout
+        uses: actions/checkout@v3
+      - name: Use Node.js18.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'npm'
+      - name: Project dependencies from package.json
+        run: npm install
+      - name:  Now run unit tests application
+        run: npm run test:unit
+      - name: Display SoftUni username
+        run: echo "basiliocristov"
